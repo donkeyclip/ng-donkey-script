@@ -1,0 +1,164 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "ng-donkey-lib": {
+      "projectType": "library",
+      "root": "projects/ng-donkey-lib",
+      "sourceRoot": "projects/ng-donkey-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ng-donkey-lib/tsconfig.lib.json",
+            "project": "projects/ng-donkey-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-donkey-lib/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-donkey-lib/src/test.ts",
+            "tsConfig": "projects/ng-donkey-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-donkey-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-donkey-lib/tsconfig.lib.json",
+              "projects/ng-donkey-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ng-donkey-app": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/ng-donkey-app",
+      "sourceRoot": "projects/ng-donkey-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ng-donkey-app",
+            "index": "projects/ng-donkey-app/src/index.html",
+            "main": "projects/ng-donkey-app/src/main.ts",
+            "polyfills": "projects/ng-donkey-app/src/polyfills.ts",
+            "tsConfig": "projects/ng-donkey-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/ng-donkey-app/src/favicon.ico",
+              "projects/ng-donkey-app/src/assets"
+            ],
+            "styles": [
+              "projects/ng-donkey-app/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ng-donkey-app/src/environments/environment.ts",
+                  "with": "projects/ng-donkey-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ng-donkey-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ng-donkey-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ng-donkey-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-donkey-app/src/test.ts",
+            "polyfills": "projects/ng-donkey-app/src/polyfills.ts",
+            "tsConfig": "projects/ng-donkey-app/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-donkey-app/karma.conf.js",
+            "assets": [
+              "projects/ng-donkey-app/src/favicon.ico",
+              "projects/ng-donkey-app/src/assets"
+            ],
+            "styles": [
+              "projects/ng-donkey-app/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-donkey-app/tsconfig.app.json",
+              "projects/ng-donkey-app/tsconfig.spec.json",
+              "projects/ng-donkey-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ng-donkey-app/e2e/protractor.conf.js",
+            "devServerTarget": "ng-donkey-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ng-donkey-app:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ng-donkey-lib"
+}
