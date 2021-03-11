@@ -1,11 +1,11 @@
-import { Component, ElementRef, Input, OnChanges, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'ng-donkey-lib',
   template: `
   `,
 })
-export class NgDonkeyLibComponent implements OnChanges {
+export class NgDonkeyLibComponent implements OnChanges, OnDestroy {
   @Input() clipId: string = '';
   @Input() baseUrl = 'api.donkeyclip.com';
   @Input() branch?: string;
@@ -28,13 +28,20 @@ export class NgDonkeyLibComponent implements OnChanges {
 
   @ViewChild('container') container?: ElementRef
 
-  private scriptElement: HTMLScriptElement;
+  private _scriptElement: HTMLScriptElement;
+  private _initiated = false;
+
   constructor(
     private _renderer2: Renderer2, 
     private element: ElementRef
   ) {
-    this.scriptElement = this._renderer2.createElement('script');
-    this._renderer2.appendChild(this.element.nativeElement, this.scriptElement);
+    this._scriptElement = this._renderer2.createElement('script');
+    this._renderer2.appendChild(this.element.nativeElement, this._scriptElement);
+  }
+
+  ngOnDestroy() {
+    // Eliminate script upon destroy
+    this._renderer2.removeChild(this.element.nativeElement, this._scriptElement);
   }
 
   public ngOnChanges() {
@@ -46,7 +53,8 @@ export class NgDonkeyLibComponent implements OnChanges {
       throw new Error('Clip id is missing')
     }
 
-    if(!this.isInteractive){
+    // Only interactive mode should watch for Input changes
+    if(!this.isInteractive && this._initiated){
       return;
     }
 
@@ -69,14 +77,15 @@ export class NgDonkeyLibComponent implements OnChanges {
     this.evaluateAttribute(this.volume,'data-volume');
     this.evaluateAttribute(this.params,'data-params');
 
-    this.scriptElement.src =`https://${this.baseUrl}/embed${this.branch ? '/'+this.branch:''}/${this.clipId}`
+    this._scriptElement.src =`https://${this.baseUrl}/embed${this.branch ? '/'+this.branch:''}/${this.clipId}`
+    this._initiated = true;
   }
 
   private evaluateAttribute(attrValue: boolean|string|number|undefined, attr: string) {
     if(attrValue) {
-      this.scriptElement.setAttribute(attr, typeof attrValue === 'boolean' ? '' : attrValue as string);
+      this._scriptElement.setAttribute(attr, typeof attrValue === 'boolean' ? '' : attrValue as string);
     } else {
-      this.scriptElement.removeAttribute(attr);
+      this._scriptElement.removeAttribute(attr);
     }
   }
 }
