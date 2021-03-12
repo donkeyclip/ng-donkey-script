@@ -1,1 +1,106 @@
-<ng-donkey-lib clipId="87eF81C7-3f44" [loop]="loop"></ng-donkey-lib>
+<ng-donkey-lib 
+  [clipId]="clipId" 
+  [baseUrl]="baseUrl"
+  [branch]="branch"
+  [width]="width"
+  [height]="height"
+  [theme]="theme"
+  [params]="params"
+  [speed]="speed"
+  [volume]="volume"
+  [preview]="preview"
+  [showVolume]="showVolume"
+  [showIndicator]="showIndicator"
+  [controls]="controls"
+  [autoplay]="autoplay"
+  [scaleToFit]="scaleToFit"
+  [loop]="loop"
+  [pointerEvents]="pointerEvents"
+  [muted]="muted"
+  [isInteractive]="isInteractive"
+  ></ng-donkey-lib>
+
+<div class="control-panel">
+  <div class="column">
+    <h4>Basic Configuration</h4>
+    <div class="control">
+      <label>Clip ID</label>
+      <input type="text" [(ngModel)]="clipId"/>
+    </div>
+    <div class="control">
+      <label>BaseUrl</label>
+      <input type="text" [(ngModel)]="baseUrl"/>
+    </div>
+    <div class="control">
+      <label>Branch</label>
+      <input type="text" [(ngModel)]="branch"/>
+    </div>
+    <div class="control">
+      <label>Width</label>
+      <input type="text" [(ngModel)]="width"/>
+    </div>
+    <div class="control">
+      <label>Height</label>
+      <input type="text" [(ngModel)]="height"/>
+    </div>
+    <div class="control">
+      <label>Theme</label>
+      <input type="text" [(ngModel)]="theme"/>
+    </div>
+    <div class="control">
+      <label>Params</label>
+      <input type="text" [(ngModel)]="params"/>
+    </div>
+    <div class="control">
+      <label>Speed</label>
+      <input type="number" [(ngModel)]="speed"/>
+    </div>
+    <div class="control">
+      <label>Volume</label>
+      <input type="number" [(ngModel)]="volume"/>
+    </div>
+  </div>
+  <div class="column">
+    <h4>Flag Configuration</h4>
+    <div class="control">
+      <label>Preview</label>
+      <input type="checkbox" [(ngModel)]="preview"/>
+    </div>
+    <div class="control">
+      <label>Show Volume</label>
+      <input type="checkbox" [(ngModel)]="showVolume"/>
+    </div>
+    <div class="control">
+      <label>Show Indicator</label>
+      <input type="checkbox" [(ngModel)]="showIndicator"/>
+    </div>
+    <div class="control">
+      <label>Controls</label>
+      <input type="checkbox" [(ngModel)]="controls"/>
+    </div>
+    <div class="control">
+      <label>Auto-play</label>
+      <input type="checkbox" [(ngModel)]="autoplay"/>
+    </div>
+    <div class="control">
+      <label>Scale to fit</label>
+      <input type="checkbox" [(ngModel)]="scaleToFit"/>
+    </div>
+    <div class="control">
+      <label>Loop</label>
+      <input type="checkbox" [(ngModel)]="loop"/>
+    </div>
+    <div class="control">
+      <label>Pointer Events</label>
+      <input type="checkbox" [(ngModel)]="pointerEvents"/>
+    </div>
+    <div class="control">
+      <label>Muted</label>
+      <input type="checkbox" [(ngModel)]="muted"/>
+    </div>
+    <div class="control">
+      <label>Interactive</label>
+      <input type="checkbox" [(ngModel)]="isInteractive"/>
+    </div>
+  </div>
+</div>

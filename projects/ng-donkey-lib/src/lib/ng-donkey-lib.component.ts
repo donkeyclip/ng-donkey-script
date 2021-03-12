@@ -2,8 +2,8 @@ import { Component, ElementRef, Input, OnChanges, OnDestroy, Renderer2, ViewChil
 
 @Component({
   selector: 'ng-donkey-lib',
-  template: `
-  `,
+  template: ``,
+  styles: [':host { display: block; position: relative; }']
 })
 export class NgDonkeyLibComponent implements OnChanges, OnDestroy {
   @Input() clipId: string = '';
