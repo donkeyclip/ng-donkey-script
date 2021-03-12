@@ -2,3 +2,23 @@ ng-donkey-lib {
   display: block;
   height: 500px;
 }
+
+.control-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  column-gap: 30px;
+  row-gap: 30px;
+  margin-top: 30px;
+}
+
+.column {
+  border: 1px black solid;
+  display: grid;
+  grid-auto-flow: row;
+  padding: 15px;
+}
+.control {
+  margin-top: 5px;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+}
